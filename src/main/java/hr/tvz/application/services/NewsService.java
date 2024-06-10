@@ -1,5 +1,7 @@
 package hr.tvz.application.services;
 
+import hr.tvz.application.data.News;
+import hr.tvz.application.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

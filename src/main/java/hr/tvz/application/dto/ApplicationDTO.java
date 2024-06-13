@@ -1,7 +1,12 @@
 package hr.tvz.application.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Getter
+@Setter
 public class ApplicationDTO {
     private Long id;
     private Long userId;
@@ -10,5 +15,5 @@ public class ApplicationDTO {
     private Date submissionDate;
     private String notes;
 
-    // Getters and setters
+
 }

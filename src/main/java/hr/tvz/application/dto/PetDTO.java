@@ -1,7 +1,12 @@
 package hr.tvz.application.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Getter
+@Setter
 public class PetDTO {
     private Long id;
     private String name;
@@ -12,5 +17,4 @@ public class PetDTO {
     private String photoUrl;
     private Long shelterId;
 
-    // Getters and setters
 }

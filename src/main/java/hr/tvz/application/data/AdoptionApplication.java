@@ -1,8 +1,13 @@
 package hr.tvz.application.data;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "applications")
 public class AdoptionApplication {
@@ -24,7 +29,7 @@ public class AdoptionApplication {
     private Date submissionDate;
     private String notes;
 
-    // Getters and setters
-
+    @ManyToOne
+    @JoinColumn(name = "shelter_id")
+    private Shelter shelter;
 }
-

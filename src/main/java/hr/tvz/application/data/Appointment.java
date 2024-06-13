@@ -1,10 +1,15 @@
 package hr.tvz.application.data;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
 @Entity
 @Table(name = "appointments")
+@Getter
+@Setter
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +27,8 @@ public class Appointment {
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
+
     private Date appointmentDate;
     private String status;
 
-    // Getters and setters
 }

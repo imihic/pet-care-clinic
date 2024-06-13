@@ -1,10 +1,15 @@
 package hr.tvz.application.data;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
 @Entity
 @Table(name = "pets")
+@Getter
+@Setter
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,11 +20,11 @@ public class Pet {
     private int age;
     private boolean vaccinated;
     private Date birthDate;
-    private String photoUrl;
+    private byte[] photo;
 
     @ManyToOne
     @JoinColumn(name = "shelter_id")
     private Shelter shelter;
 
-    // Getters and setters
+    private boolean featured;
 }

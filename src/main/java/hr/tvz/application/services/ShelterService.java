@@ -1,4 +1,7 @@
 package hr.tvz.application.services;
+import hr.tvz.application.data.Shelter;
+import hr.tvz.application.dto.ShelterDTO;
+import hr.tvz.application.repository.ShelterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -8,8 +11,11 @@ import java.util.stream.Collectors;
 @Service
 public class ShelterService {
 
-    @Autowired
-    private ShelterRepository shelterRepository;
+    private final ShelterRepository shelterRepository;
+
+    public ShelterService(ShelterRepository shelterRepository) {
+        this.shelterRepository = shelterRepository;
+    }
 
     public ShelterDTO saveShelter(ShelterDTO shelterDTO) {
         Shelter shelter = new Shelter();

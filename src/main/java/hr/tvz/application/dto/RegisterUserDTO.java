@@ -5,9 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDTO {
+public class RegisterUserDTO {
     private String username;
-    private String name;
+    private String password;
+    private String firstName;
+    private String lastName;
     private String street;
     private String zip;
     private String city;
@@ -16,5 +18,6 @@ public class UserDTO {
     private byte[] profilePicture;
     private double budget;
     private boolean openToAdoptions;
-    private String role;
+    private String adoptionFromDate;
+    private String adoptionToDate;
 }

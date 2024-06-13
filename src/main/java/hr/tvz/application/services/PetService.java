@@ -1,6 +1,11 @@
 package hr.tvz.application.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import hr.tvz.application.data.Pet;
+import hr.tvz.application.data.Shelter;
+import hr.tvz.application.dto.FeaturedPetDTO;
+import hr.tvz.application.dto.PetDTO;
+import hr.tvz.application.repository.PetRepository;
+import hr.tvz.application.repository.ShelterRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +14,13 @@ import java.util.stream.Collectors;
 @Service
 public class PetService {
 
-    @Autowired
-    private PetRepository petRepository;
+    private final PetRepository petRepository;
+    private final ShelterRepository shelterRepository;
+
+    public PetService(PetRepository petRepository, ShelterRepository shelterRepository) {
+        this.petRepository = petRepository;
+        this.shelterRepository = shelterRepository;
+    }
 
     public PetDTO savePet(PetDTO petDTO) {
         Pet pet = new Pet();
@@ -20,7 +30,6 @@ public class PetService {
         pet.setAge(petDTO.getAge());
         pet.setVaccinated(petDTO.isVaccinated());
         pet.setBirthDate(petDTO.getBirthDate());
-        pet.setPhotoUrl(petDTO.getPhotoUrl());
 
         Optional<Shelter> shelter = shelterRepository.findById(petDTO.getShelterId());
         if(shelter.isPresent()) {
@@ -56,8 +65,27 @@ public class PetService {
         petDTO.setAge(pet.getAge());
         petDTO.setVaccinated(pet.isVaccinated());
         petDTO.setBirthDate(pet.getBirthDate());
-        petDTO.setPhotoUrl(pet.getPhotoUrl());
         petDTO.setShelterId(pet.getShelter().getId());
         return petDTO;
+    }
+
+    public List<FeaturedPetDTO> getFeaturedPets() {
+        return petRepository.findByFeaturedTrue().stream()
+                .map(this::convertToFeaturedDTO)
+                .collect(Collectors.toList());
+    }
+
+    private FeaturedPetDTO convertToFeaturedDTO(Pet pet) {
+        FeaturedPetDTO featuredPetDTO = new FeaturedPetDTO();
+        featuredPetDTO.setName(pet.getName());
+        featuredPetDTO.setDescription(pet.getDescription());
+        featuredPetDTO.setPhoto(pet.getPhoto());
+        return featuredPetDTO;
+    }
+
+    public  List<FeaturedPetDTO> getFeaturedPetsByShelter(Long shelterId) {
+        return petRepository.findByShelterIdAndFeaturedTrue(shelterId).stream()
+                .map(this::convertToFeaturedDTO)
+                .collect(Collectors.toList());
     }
 }

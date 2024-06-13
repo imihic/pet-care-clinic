@@ -13,8 +13,11 @@ import java.util.Optional;
 @Service
 public class AppointmentService {
 
-    @Autowired
-    private AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
+
+    public AppointmentService(AppointmentRepository appointmentRepository) {
+        this.appointmentRepository = appointmentRepository;
+    }
 
     public Appointment saveAppointment(Appointment appointment) {
         return appointmentRepository.save(appointment);

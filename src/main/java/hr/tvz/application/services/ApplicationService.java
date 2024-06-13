@@ -3,11 +3,12 @@ package hr.tvz.application.services;
 import hr.tvz.application.data.*;
 import hr.tvz.application.dto.ApplicationDTO;
 import hr.tvz.application.repository.AdoptionApplicationRepository;
+import hr.tvz.application.repository.PetRepository;
+import hr.tvz.application.repository.ShelterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,17 @@ import java.util.stream.Collectors;
 
 @Service
 public class ApplicationService {
+    private final AdoptionApplicationRepository applicationRepository;
+    private final UserRepository userRepository;
+    private final PetRepository petRepository;
+    private final ShelterRepository shelterRepository;
 
-    @Autowired
-    private AdoptionApplicationRepository applicationRepository;
+    public ApplicationService(AdoptionApplicationRepository applicationRepository, UserRepository userRepository, PetRepository petRepository, ShelterRepository shelterRepository) {
+        this.applicationRepository = applicationRepository;
+        this.userRepository = userRepository;
+        this.petRepository = petRepository;
+        this.shelterRepository = shelterRepository;
+    }
 
     public ApplicationDTO saveApplication(ApplicationDTO applicationDTO) {
         AdoptionApplication application = new AdoptionApplication();
@@ -29,14 +38,10 @@ public class ApplicationService {
         application.setNotes(applicationDTO.getNotes());
 
         Optional<User> user = userRepository.findById(applicationDTO.getUserId());
-        if(user.isPresent()) {
-            application.setUser(user.get());
-        }
+        user.ifPresent(application::setUser);
 
         Optional<Pet> pet = petRepository.findById(applicationDTO.getPetId());
-        if(pet.isPresent()) {
-            application.setPet(pet.get());
-        }
+        pet.ifPresent(application::setPet);
 
         AdoptionApplication savedApplication = applicationRepository.save(application);
 
@@ -57,16 +62,16 @@ public class ApplicationService {
 
     public List<ApplicationDTO> getApplicationsByUser(Long userId) {
         Optional<User> user = userRepository.findById(userId);
-        return user.map(value -> applicationRepository.findByUser(value).stream()
+        return Objects.requireNonNull(user.map(value -> applicationRepository.findByUser(value).stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList())).orElse(null);
+                .collect(Collectors.toList())).orElse(null));
     }
 
     public List<ApplicationDTO> getApplicationsByShelter(Long shelterId) {
         Optional<Shelter> shelter = shelterRepository.findById(shelterId);
-        return shelter.map(value -> applicationRepository.findByShelter(value).stream()
+        return Objects.requireNonNull(shelter.map(value -> applicationRepository.findByShelter(value).stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList())).orElse(null);
+                .collect(Collectors.toList())).orElse(null));
     }
 
     public List<ApplicationDTO> getApplicationsByStatus(String status) {

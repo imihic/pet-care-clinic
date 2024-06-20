@@ -1,6 +1,7 @@
 package hr.tvz.application.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import hr.tvz.application.util.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;

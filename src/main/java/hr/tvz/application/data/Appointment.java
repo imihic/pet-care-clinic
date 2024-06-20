@@ -10,18 +10,11 @@ import java.util.Date;
 @Table(name = "appointments")
 @Getter
 @Setter
-public class Appointment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Appointment extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "shelter_id")
-    private Shelter shelter;
 
     @ManyToOne
     @JoinColumn(name = "pet_id")

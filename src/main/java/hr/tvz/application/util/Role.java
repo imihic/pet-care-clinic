@@ -1,4 +1,4 @@
-package hr.tvz.application.data;
+package hr.tvz.application.util;
 
 public enum Role {
     USER, ADMIN;

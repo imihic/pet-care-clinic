@@ -2,7 +2,7 @@ package hr.tvz.application.security;
 
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import hr.tvz.application.data.User;
-import hr.tvz.application.data.UserRepository;
+import hr.tvz.application.repository.UserRepository;
 import java.util.Optional;
 
 import org.springframework.security.core.Authentication;

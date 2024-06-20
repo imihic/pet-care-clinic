@@ -3,6 +3,8 @@ package hr.tvz.application.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 public class RegisterUserDTO {
@@ -11,13 +13,13 @@ public class RegisterUserDTO {
     private String firstName;
     private String lastName;
     private String street;
-    private String zip;
+    private Integer zip;
     private String city;
     private String country;
     private String breedPreferences;
     private byte[] profilePicture;
     private double budget;
     private boolean openToAdoptions;
-    private String adoptionFromDate;
-    private String adoptionToDate;
+    private Date adoptionFromDate;
+    private Date adoptionToDate;
 }

@@ -2,7 +2,7 @@ package hr.tvz.application;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
-import hr.tvz.application.data.UserRepository;
+import hr.tvz.application.repository.UserRepository;
 import javax.sql.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

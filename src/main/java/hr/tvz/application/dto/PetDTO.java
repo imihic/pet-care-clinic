@@ -14,7 +14,7 @@ public class PetDTO {
     private int age;
     private boolean vaccinated;
     private Date birthDate;
-    private String photoUrl;
+    private String photo;
     private Long shelterId;
 
 }

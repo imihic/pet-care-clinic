@@ -23,4 +23,8 @@ public class Shelter {
     @OneToMany(mappedBy = "shelter")
     private Set<Pet> pets;
 
+    private long latitude;
+
+    private long longitude;
+
 }

@@ -1,5 +1,5 @@
 package hr.tvz.application.data;
-
+import hr.tvz.application.util.ApplicationStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +10,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "applications")
-public class AdoptionApplication {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class AdoptionApplication extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -29,7 +26,6 @@ public class AdoptionApplication {
     private Date submissionDate;
     private String notes;
 
-    @ManyToOne
-    @JoinColumn(name = "shelter_id")
-    private Shelter shelter;
+
+
 }

@@ -1,7 +1,7 @@
 package hr.tvz.application.security;
 
 import hr.tvz.application.data.User;
-import hr.tvz.application.data.UserRepository;
+import hr.tvz.application.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;

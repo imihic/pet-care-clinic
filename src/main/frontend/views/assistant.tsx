@@ -3,7 +3,6 @@ import { useSignal } from '@vaadin/hilla-react-signals';
 import { Button } from '@vaadin/react-components/Button.js';
 import { Notification } from '@vaadin/react-components/Notification.js';
 import { TextField } from '@vaadin/react-components/TextField.js';
-import { HelloWorldService } from 'Frontend/generated/endpoints.js';
 
 export const config: ViewConfig = {
   menu: { order: 5, icon: 'line-awesome/svg/telegram-plane.svg' },
@@ -25,8 +24,7 @@ export default function AssistantView() {
         />
         <Button
           onClick={async () => {
-            const serverResponse = await HelloWorldService.sayHello(name.value);
-            Notification.show(serverResponse);
+            Notification.show("Hello, " + name.value + "!");
           }}
         >
           Say hello

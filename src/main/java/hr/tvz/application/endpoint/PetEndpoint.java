@@ -2,6 +2,7 @@ package hr.tvz.application.endpoint;
 
 import com.vaadin.hilla.Endpoint;
 import hr.tvz.application.dto.FeaturedPetDTO;
+import hr.tvz.application.dto.PetDTO;
 import hr.tvz.application.services.PetService;
 import jakarta.annotation.security.RolesAllowed;
 
@@ -24,5 +25,10 @@ public class PetEndpoint {
     @RolesAllowed("ROLE_USER")
     public List<FeaturedPetDTO> getFeaturedPetsByShelter(Long shelterId) {
         return petService.getFeaturedPetsByShelter(shelterId);
+    }
+
+    @RolesAllowed("ROLE_ADMIN")
+    public List<PetDTO> getAllPets() {
+        return petService.getAllPets();
     }
 }

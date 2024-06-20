@@ -1,6 +1,7 @@
-package hr.tvz.application.data;
+package hr.tvz.application.repository;
 
 
+import hr.tvz.application.data.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

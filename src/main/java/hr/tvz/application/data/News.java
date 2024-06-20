@@ -18,6 +18,7 @@ public class News extends AbstractEntity {
 
     @Column(nullable = false, length = 5000)
     private String content;
+
     private Date publishDate;
     private boolean active;
     private LocalDate expiryDate;

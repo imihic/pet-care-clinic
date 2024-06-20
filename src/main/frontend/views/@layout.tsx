@@ -1,11 +1,17 @@
 import { createMenuItems, useViewConfig } from '@vaadin/hilla-file-router/runtime.js';
 import { effect, signal } from '@vaadin/hilla-react-signals';
-import { AppLayout, DrawerToggle, Icon, SideNav, SideNavItem } from '@vaadin/react-components';
-import { Avatar } from '@vaadin/react-components/Avatar.js';
-import { Button } from '@vaadin/react-components/Button.js';
+import { AppLayout } from '@vaadin/react-components/AppLayout';
+import { DrawerToggle } from '@vaadin/react-components/DrawerToggle';
+import { Icon } from '@vaadin/react-components/Icon';
+import { SideNav } from '@vaadin/react-components/SideNav';
+import { SideNavItem } from '@vaadin/react-components/SideNavItem';
+import { Avatar } from '@vaadin/react-components/Avatar';
+import { Button } from '@vaadin/react-components/Button';
 import { useAuth } from 'Frontend/util/auth.js';
 import { Suspense, useEffect } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+
+
 
 const defaultTitle = document.title;
 const documentTitleSignal = signal('');
@@ -74,7 +80,7 @@ export default function MainLayout() {
             </div>
 
             <DrawerToggle slot="navbar" aria-label="Menu toggle"></DrawerToggle>
-            <h1 slot="navbar" className="text-l m-0">
+            <h1 slot="navbar" className="text-l m-0 font-bold">
                 {documentTitleSignal}
             </h1>
 

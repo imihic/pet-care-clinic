@@ -23,7 +23,7 @@ const RegistrationForm: React.FC = () => {
         firstName: '',
         lastName: '',
         street: '',
-        zip: '',
+        zip: 0,
         city: '',
         country: '',
         breedPreferences: '',
@@ -73,49 +73,49 @@ const RegistrationForm: React.FC = () => {
                 <TextField
                     label="Username"
                     name="username"
-                    value={formData.username}
+                    value={formData.username as string}
                     onChange={handleChange}
                 />
                 <PasswordField
                     label="Password"
                     name="password"
-                    value={formData.password}
+                    value={formData.password as string}
                     onChange={handleChange}
                 />
                 <TextField
                     label="First Name"
                     name="firstName"
-                    value={formData.firstName}
+                    value={formData.firstName as string}
                     onChange={handleChange}
                 />
                 <TextField
                     label="Last Name"
                     name="lastName"
-                    value={formData.lastName}
+                    value={formData.lastName as string}
                     onChange={handleChange}
                 />
                 <TextField
                     label="Street"
                     name="street"
-                    value={formData.street}
+                    value={formData.street as string}
                     onChange={handleChange}
                 />
                 <TextField
                     label="ZIP"
                     name="zip"
-                    value={formData.zip}
+                    value={formData.zip as string}
                     onChange={handleChange}
                 />
                 <TextField
                     label="City"
                     name="city"
-                    value={formData.city}
+                    value={formData.city as string}
                     onChange={handleChange}
                 />
                 <TextField
                     label="Country"
                     name="country"
-                    value={formData.country}
+                    value={formData.country as string}
                     onChange={handleChange}
                 />
                 <Select
@@ -153,13 +153,13 @@ const RegistrationForm: React.FC = () => {
                 <DatePicker
                     label="From"
                     name="adoptionFromDate"
-                    value={formData.adoptionFromDate}
+                    value={formData.adoptionFromDate as string}
                     onChange={(e: any) => setFormData({ ...formData, adoptionFromDate: e.target.value })}
                 />
                 <DatePicker
                     label="To"
                     name="adoptionToDate"
-                    value={formData.adoptionToDate}
+                    value={formData.adoptionToDate as string}
                     onChange={(e: any) => setFormData({ ...formData, adoptionToDate: e.target.value })}
                 />
             </FormLayout>

@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FeaturedPetDTO {
+public class FeaturedPetDTO extends PetDTO {
 
     private String name;
     private String description;
-    private byte[] photo;
+    private String photo;
 }

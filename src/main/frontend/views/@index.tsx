@@ -5,11 +5,14 @@ import {
     Button,
     Icon,
 } from '@vaadin/react-components';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
+import { Icon as LeafletIcon } from 'leaflet';
 import { NewsEndpoint } from "Frontend/generated/endpoints"; // Import the news client
+import { getAuthenticatedUser } from "Frontend/generated/UserEndpoint";
+import User from "Frontend/generated/hr/tvz/application/data/User";
+import Role from "Frontend/generated/hr/tvz/application/util/Role";
 
 export const config: ViewConfig = {
     menu: { order: 0, icon: 'line-awesome/svg/home-solid.svg' },
@@ -50,6 +53,7 @@ const userAddress = {
 export default function HomeView() {
     const [pets, setPets] = useState<Pet[]>([]);
     const [news, setNews] = useState<NewsItem[]>([]);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         setPets(fakePetsData);
@@ -64,16 +68,29 @@ export default function HomeView() {
             }));
             setNews(formattedNews);
         });
+
+        // Fetch user details to check if the user is an admin
+        getAuthenticatedUser().then((user: User | undefined) => {
+            if (user) {
+                setIsAdmin(user.roles.some(role => role === Role.ADMIN)); // Assuming role has a 'name' property
+            }
+        });
     }, []);
 
     const removeNewsItem = (id: number) => {
         setNews(news.filter(item => item.id !== id));
     };
 
+    const customIcon = new LeafletIcon({
+        iconUrl: 'path/to/marker-icon.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+    });
+
     return (
         <VerticalLayout className="h-full w-full p-l">
             <VerticalLayout className="w-full p-l" style={{ margin: 'auto' }}>
-                <h2>News</h2>
+                <h2>News {isAdmin && <Button>Edit</Button>}</h2>
                 {news.map(item => (
                     <HorizontalLayout key={item.id} style={{ position: 'relative', border: '1px solid #ccc', borderRadius: '8px', padding: '16px', marginBottom: '16px', width: '100%', alignItems: 'center' }}>
                         <Icon icon="vaadin:exclamation-circle" style={{ marginRight: '16px' }}></Icon>
@@ -91,7 +108,7 @@ export default function HomeView() {
 
             <HorizontalLayout className="w-full p-l" style={{ margin: 'auto' }}>
                 <VerticalLayout style={{ width: '70%' }}>
-                    <h2>Featured pets</h2>
+                    <h2>Featured pets {isAdmin && <Button>Edit</Button>}</h2>
                     {pets.map((pet, index) => (
                         <HorizontalLayout key={index} style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', marginBottom: '16px', width: '100%', alignItems: 'center' }}>
                             <div style={{ flex: 1 }}>
@@ -110,11 +127,7 @@ export default function HomeView() {
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         />
-                        <Marker position={[userAddress.lat, userAddress.lng]} icon={new L.Icon({
-                            iconUrl: 'path/to/marker-icon.png',
-                            iconSize: [25, 41],
-                            iconAnchor: [12, 41],
-                        })}>
+                        <Marker position={[userAddress.lat, userAddress.lng]} icon={customIcon}>
                             <Popup>
                                 You are here
                             </Popup>

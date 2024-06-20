@@ -10,21 +10,23 @@ import java.util.Date;
 @Table(name = "pets")
 @Getter
 @Setter
-public class Pet {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Pet extends AbstractEntity {
 
     private String name;
     private String description;
     private int age;
     private boolean vaccinated;
+
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
-    private byte[] photo;
+    @Lob
+    private String photo;
 
     @ManyToOne
     @JoinColumn(name = "shelter_id")
     private Shelter shelter;
 
     private boolean featured;
+
+    private boolean adopted;
 }

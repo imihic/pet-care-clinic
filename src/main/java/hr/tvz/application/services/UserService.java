@@ -1,15 +1,14 @@
 package hr.tvz.application.services;
 
-import hr.tvz.application.data.Role;
+import hr.tvz.application.util.Role;
 import hr.tvz.application.data.User;
-import hr.tvz.application.data.UserRepository;
+import hr.tvz.application.repository.UserRepository;
 
 import java.util.EnumSet;
 import java.util.Optional;
 
 import hr.tvz.application.dto.RegisterUserDTO;
 import hr.tvz.application.dto.UserDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -58,7 +57,7 @@ public class UserService {
         user.setHashedPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setName(userDTO.getFirstName() + " " + userDTO.getLastName());
         user.setStreet(userDTO.getStreet());
-        user.setZip(userDTO.getZip());
+        user.setZip(String.valueOf(userDTO.getZip()));
         user.setCity(userDTO.getCity());
         user.setCountry(userDTO.getCountry());
         user.setBreedPreferences(userDTO.getBreedPreferences());

@@ -7,6 +7,9 @@ import hr.tvz.application.dto.PetDTO;
 import hr.tvz.application.repository.PetRepository;
 import hr.tvz.application.repository.ShelterRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,7 +33,8 @@ public class PetService {
         pet.setAge(petDTO.getAge());
         pet.setVaccinated(petDTO.isVaccinated());
         pet.setBirthDate(petDTO.getBirthDate());
-
+        // Convert base64 encoded string to byte array
+        pet.setPhoto(Arrays.toString(Base64.getDecoder().decode(petDTO.getPhoto())));
         Optional<Shelter> shelter = shelterRepository.findById(petDTO.getShelterId());
         if(shelter.isPresent()) {
             pet.setShelter(shelter.get());
@@ -66,6 +70,8 @@ public class PetService {
         petDTO.setVaccinated(pet.isVaccinated());
         petDTO.setBirthDate(pet.getBirthDate());
         petDTO.setShelterId(pet.getShelter().getId());
+        // get photo bytes from entity and return as base64 encoded string
+        petDTO.setPhoto(pet.getPhoto());
         return petDTO;
     }
 
@@ -79,6 +85,7 @@ public class PetService {
         FeaturedPetDTO featuredPetDTO = new FeaturedPetDTO();
         featuredPetDTO.setName(pet.getName());
         featuredPetDTO.setDescription(pet.getDescription());
+        // get photo bytes from entity and return as base64 encoded string
         featuredPetDTO.setPhoto(pet.getPhoto());
         return featuredPetDTO;
     }
@@ -88,4 +95,6 @@ public class PetService {
                 .map(this::convertToFeaturedDTO)
                 .collect(Collectors.toList());
     }
+
+
 }
